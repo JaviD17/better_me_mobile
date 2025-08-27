@@ -3,3 +3,5 @@ build/
 .env
 *.apk
 *.aab
+ios/Runner.xcworkspace
+ios/Runner.xcodeproj/project.xcworkspace
