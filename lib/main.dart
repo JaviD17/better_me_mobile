@@ -40,11 +40,18 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: fetchData,
-            child: Text('Fetch Data'),
-          ),
+        appBar: AppBar(title: Text('BETTERME')),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: fetchData, child: Text('Fetch Data')),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Log Nutrition'),
+              onFieldSubmitted: (value) {
+                // Add Logic to send to backend
+              },
+            ),
+          ],
         ),
       ),
     );
