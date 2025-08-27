@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  Future<void> fetchData() async {
+    final response = await http.get(
+      Uri.parse('${dotenv.env['API_URL']}/users'),
+    );
+    print(response.body);
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'BETTERME',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -30,7 +41,14 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        body: Center(
+          child: ElevatedButton(
+            onPressed: fetchData,
+            child: Text('Fetch Data'),
+          ),
+        ),
+      ),
     );
   }
 }
